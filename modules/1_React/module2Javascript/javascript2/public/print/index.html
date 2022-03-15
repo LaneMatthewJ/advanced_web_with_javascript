@@ -1,0 +1,146 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><meta name="generator" content="Gatsby 2.19.7"/><title data-react-helmet="true">MORE Javascript!</title><link as="script" rel="preload" href="/component---gatsby-theme-mdx-deck-src-templates-deck-js-8b79b2f7698a586d24d7.js"/><link as="script" rel="preload" href="/commons-eec50aa5983109e0f4e3.js"/><link as="script" rel="preload" href="/app-0a1bea0785cad8b5b8f6.js"/><link as="script" rel="preload" href="/webpack-runtime-62ab93873056e1e7eeb7.js"/><link as="fetch" rel="preload" href="/page-data/print/page-data.json" crossorigin="anonymous"/></head><body><script>(function() { try {
+        var mode = localStorage.getItem('theme-ui-color-mode');
+        if (!mode) return
+        document.body.classList.add('theme-ui-' + mode);
+      } catch (e) {} })();</script><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group" id="gatsby-focus-wrapper"><style data-emotion-css="13j5fvw">body{margin:0;}</style><style data-emotion-css="bdfrlc">.css-bdfrlc{width:100vw;height:100vh;}.css-bdfrlc *{box-sizing:border-box;}</style><div class="css-bdfrlc"><div style="outline:none;height:100%" tabindex="-1" role="group"><style data-emotion-css="ooyd37">.css-ooyd37{box-sizing:border-box;width:100%;height:100vh;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;overflow:hidden;position:relative;color:var(--theme-ui-colors-text,#000);background-color:var(--theme-ui-colors-background,#fff);font-family:system-ui,sans-serif;font-size:20px;}@media screen and (min-width:40em){.css-ooyd37{font-size:24px;}}@media screen and (min-width:52em){.css-ooyd37{font-size:32px;}}@media screen and (min-width:64em){.css-ooyd37{font-size:48px;}}</style><div class="css-ooyd37"><style data-emotion-css="1djqpdg">.css-1djqpdg{font-family:inherit;line-height:1.125;font-weight:700;}</style><h1 class="css-1djqpdg">MORE Javascript!</h1></div><div class="css-ooyd37"><h2 class="css-1djqpdg">The Event Loop:</h2><style data-emotion-css="1uk1gs8">.css-1uk1gs8{margin:0;}</style><ul class="css-1uk1gs8"><li class="css-0">Imagine that every single tab in your web browser is running on a constant loop. Javascript code is entirely single threaded, that is to say, there are no other threads or processes that get kicked off. While this does seemingly limit the abilities of your program, it does simplify your code (i.e. you don&#x27;t need to worry about listening for other threads). All you need to think about is how to create code that does not block (e.g. no &quot;event listener loops&quot; that spin forever).</li><li class="css-0">Expensive calls in javascript (such as network calls) that could block the event loop are non-blocking.</li></ul></div><div class="css-ooyd37"><h2 class="css-1djqpdg">The Event Loop:</h2><ul class="css-1uk1gs8"><li class="css-0">The event loop looks to see if there is anything in the call stack that can be run. Regularly speaking, think of this as a stack trace.</li></ul><style data-emotion-css="1gxdjd5">.css-1gxdjd5{font-family:"Roboto Mono",Menlo,monospace;padding:16px;}</style><pre class="css-1gxdjd5"><style data-emotion-css="vgof0f">.css-vgof0f{font-family:"Roboto Mono",Menlo,monospace;}</style><code class="language-javascript css-vgof0f">const sayHi = () =&gt; console.log(&quot;hi&quot;);
+const sayGoodbye = () =&gt; console.log(&quot;goodbye&quot;);
+
+const interact = () =&gt; {
+  sayHi();
+  sayGoodbye();
+};
+
+interact();
+</code></pre><p class="css-0">outputs:</p><pre class="css-1gxdjd5"><code class="language-bash css-vgof0f">hi
+goodbye
+</code></pre></div><div class="css-ooyd37"><h2 class="css-1djqpdg">The Event Loop:</h2><p class="css-0">But what happens if there&#x27;s a blocking element?</p><pre class="css-1gxdjd5"><code class="language-javascript css-vgof0f">const sayHi2 = () =&gt; console.log(&quot;hi&quot;);
+const saySomethingEngaging = () =&gt; console.log(&quot;I live in a giant shoe&quot;);
+const sayGoodbye2 = () =&gt; console.log(&quot;goodbye&quot;);
+
+const interact2 = () =&gt; {
+  sayHi2();
+  setTimeout(saySomethingEngaging, 500);
+  sayGoodbye2();
+};
+
+interact2();
+</code></pre></div><div class="css-ooyd37"><ul class="css-1uk1gs8"><li class="css-0">Once the timer is finished, saySomethingEngaging is placed into the message queue (also where user inputs go) to be retrieved by the loop. Priority is given to the call stack (i.e. everything that&#x27;s not waiting in the message queue).</li><li class="css-0">output:</li></ul><pre class="css-1gxdjd5"><code class="language-bash css-vgof0f">&gt; interact2()
+hi
+goodbye
+
+&gt; I live in a giant shoe
+</code></pre></div><div class="css-ooyd37"><h2 class="css-1djqpdg">Asynchronous Programming, Promises, and Async/Await</h2><p class="css-0">Because javascript is single threaded, it&#x27;s synchronous by default. So how do we get around that? With asynchronous programming!</p></div><div class="css-ooyd37"><h3 class="css-1djqpdg">Callbacks:</h3><p class="css-0">Callbacks are functions that are passed to other functions that act as listeners.</p><pre class="css-1gxdjd5"><code class="language-javascript css-vgof0f">document.querySelector(&quot;button&quot;).addEventListener(&quot;click&quot;, () =&gt; {
+  console.log(&quot;Call me back!&quot;);
+});
+</code></pre><ul class="css-1uk1gs8"><li class="css-0">To account for error handling, the first parameter of every callback is typically error, with the second parameter being the desired input (we&#x27;ll see examples of this in a couple slides)</li><li class="css-0">Callbacks can be very helpful, however, they can very easily result in the <style data-emotion-css="1qljzjn">.css-1qljzjn{color:var(--theme-ui-colors-primary,#07c);}</style><a href="https://medium.com/dsc-srm/javascript-callback-hell-or-pyramid-of-doom-4f786d14b997" class="css-1qljzjn">pyramid of doom! (aka callback hell)</a></li></ul></div><div class="css-ooyd37"><h3 class="css-1djqpdg">Promises</h3><ul class="css-1uk1gs8"><li class="css-0">Promises are one way to get around the pyramid of doom</li><li class="css-0">Ultimately, whena promise is called, it gets placed into its <em class="css-0">pending</em> state (neither fulfilled or rejected), while the remaining, nonblocking code executes.<ul class="css-1uk1gs8"><li class="css-0">Promises resolve to either:<ul class="css-1uk1gs8"><li class="css-0"><em class="css-0">fulfilled</em>: the operation was successful</li><li class="css-0"><em class="css-0">rejected</em>: the operation failed</li></ul></li></ul></li></ul></div><div class="css-ooyd37"><h3 class="css-1djqpdg">Promises</h3><ul class="css-1uk1gs8"><li class="css-0">When the promise is resolved, the respective handlers are called:<ul class="css-1uk1gs8"><li class="css-0"><code class="css-vgof0f">.then()</code></li><li class="css-0"><code class="css-vgof0f">.catch()</code></li></ul></li></ul><pre class="css-1gxdjd5"><code class="language-javascript css-vgof0f">const successfulPromise = new Promise((resolve, reject) =&gt; {
+  setTimeout(() =&gt; {
+    resolve(&quot;Huzzah!&quot;);
+  }, 500);
+});
+
+console.log(&quot;Successful Promise: &quot;, successfulPromise);
+
+successfulPromise.then(whateverWasResolved =&gt; {
+  console.log(&quot;Neat! we resolved &quot; + whateverWasResolved);
+});
+</code></pre></div><div class="css-ooyd37"><h3 class="css-1djqpdg">Promises</h3><p class="css-0">While the previous code is fine, it is still somewhat clunky. We can further condense it by chaining our <code class="css-vgof0f">.methods</code> (and getting ride of that middle log):</p><pre class="css-1gxdjd5"><code class="language-javascript css-vgof0f">const successfulPromise2 = new Promise((resolve, reject) =&gt; {
+  setTimeout(() =&gt; {
+    resolve(&quot;Huzzah!&quot;);
+  }, 500);
+}).then(whateverWasResolved =&gt; {
+  console.log(&quot;Neat! we resolved &quot; + whateverWasResolved);
+});
+</code></pre></div><div class="css-ooyd37"><h3 class="css-1djqpdg">Promises</h3><ul class="css-1uk1gs8"><li class="css-0">The same goes for rejected promises:</li></ul><pre class="css-1gxdjd5"><code class="language-javascript css-vgof0f">const rejectedPromise = new Promise((resolve, reject) =&gt; {
+  setTimeout(() =&gt; {
+    reject(&quot;Not Huzzah!&quot;);
+  }, 500);
+}).catch(err =&gt; {
+  console.log(&quot;Neat! we got rejected! &quot; + err);
+});
+</code></pre></div><div class="css-ooyd37"><h3 class="css-1djqpdg">Promises</h3><pre class="css-1gxdjd5"><code class="language-javascript css-vgof0f">let whoKnowsWhatKindOfPromise6 = new Promise((resolve, reject) =&gt; {
+  setTimeout(() =&gt; {
+    Math.random() &gt; 0.5 ? resolve(&quot;Huzzah!&quot;) : reject(&quot;Nuhzah&quot;);
+  }, 500);
+})
+  .then(whateverWasResolved =&gt; {
+    console.log(whateverWasResolved);
+  })
+  .catch(err =&gt; {
+    console.error(err);
+  });
+</code></pre></div><div class="css-ooyd37"><h3 class="css-1djqpdg">Async / Await</h3><p class="css-0">Built on top of promises, async/awati makes the syntax a bit more readable: When calling an asynchronous function you need to follow the syntax of:</p><pre class="css-1gxdjd5"><code class="language-javascript css-vgof0f">const functionName = async parameter =&gt; {
+  await someAsynchronousFunction();
+};
+</code></pre></div><div class="css-ooyd37"><h3 class="css-1djqpdg">Async / Await</h3><p class="css-0">In real code, async await would look something akin to:</p><pre class="css-1gxdjd5"><code class="language-javascript css-vgof0f">const someAsynchronousFunction = () =&gt; {
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      resolve(&quot;Taking our time!&quot;);
+    }, 500);
+  });
+};
+
+const useAsyncAwait = async () =&gt; {
+  await someAsynchronousFunction();
+};
+</code></pre></div><div class="css-ooyd37"><h3 class="css-1djqpdg">Async / Await</h3><ul class="css-1uk1gs8"><li class="css-0">Now, instead of having a series of callbacks or promise.then&#x27;s, we can use async await to wait on the responses from asynchronous calls and use them in a single code block:</li></ul><pre class="css-1gxdjd5"><code class="language-javascript css-vgof0f">const asyncFunc = async () =&gt; {
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      resolve(&quot;Taking our time!&quot;);
+    }, 500);
+  });
+};
+
+const asyncFunc2 = async () =&gt; {
+  return 23;
+};
+
+const callingAsync = async () =&gt; {
+  const response = await asyncFunc();
+  const response2 = await asyncFunc2();
+
+  console.log(&quot;response is&quot;, response);
+  console.log(&quot;response2 is&quot;, response2);
+};
+</code></pre></div><div class="css-ooyd37"><h3 class="css-1djqpdg">Functional Programming Paradigms:</h3><p class="css-0">There are a number of array manipulation methods to be familiar with as we move forward:</p><ul class="css-1uk1gs8"><li class="css-0">map</li><li class="css-0">reduce</li><li class="css-0">filter</li><li class="css-0">find</li></ul></div><div class="css-ooyd37"><h3 class="css-1djqpdg">Functional Programming Paradigms:</h3><p class="css-0">Some Data:</p><pre class="css-1gxdjd5"><code class="language-javascript css-vgof0f">const officeFolk = [
+  { name: &quot;Michael Scott&quot;, salary: 70000 },
+  { name: &quot;Dwight Schrute&quot;, salary: 40000 },
+  { name: &quot;Jim Halptert&quot;, salary: 40000 },
+  { name: &quot;Pam Beesly&quot;, salary: 30000 },
+  { name: &quot;Ryan Howard&quot;, salary: 0 },
+  { name: &quot;Andy Bernard&quot;, salary: 40000 },
+  { name: &quot;Robert California&quot;, salary: 1000000 },
+  { name: &quot;Stanley Hudson&quot;, salary: 50000 },
+  { name: &quot;Creed Branton&quot;, salary: 40000 },
+  { name: &quot;Meredith Palmer&quot;, salary: 40000 },
+  { name: &quot;Phyllis Lapin&quot;, salary: 50000 }
+];
+</code></pre></div><div class="css-ooyd37"><h3 class="css-1djqpdg">Functional Programming Paradigms: Map</h3><p class="css-0">Instead of writing a loop that can potentially manipulate data in a list, it is better to use a map to read data and return a new list of some given kind based off of the data that you already have. Suppose we would like to get a list only of the names of the characters above:</p><pre class="css-1gxdjd5"><code class="language-javascript css-vgof0f">const characterNames = officeFolk.map(officePerson =&gt; {
+  return officePerson.name;
+});
+
+console.log(characterNames);
+</code></pre></div><div class="css-ooyd37"><h3 class="css-1djqpdg">Functional Programming Paradigms: Map</h3><p class="css-0">.map takes a function as a parameter, where the parameter for the function is each individual element of the list. We could easily write the function separately such as:</p><pre class="css-1gxdjd5"><code class="language-javascript css-vgof0f">const retrieveOfficeCharacterName = officeCharacter =&gt; {
+  return officeCharacter.name;
+};
+
+const characterNameList = officeFolk.map(retrieveOfficeCharacterName);
+
+console.log(characterNameList);
+</code></pre></div><div class="css-ooyd37"><h3 class="css-1djqpdg">Functional Programming Paradigms: Reduce</h3><p class="css-0">Reduce is a function that iterates over a list and has an accumulator. Suppose we wanted the total sum of all the salaries of the office characters:</p><pre class="css-1gxdjd5"><code class="language-javascript css-vgof0f">const salarySum = officeFolk.reduce((accumulator, officeCharacter) =&gt; {
+  return accumulator + officeCharacter.salary;
+}, (accumulator = 0));
+
+console.log(&quot;Total salary is &quot;, salarySum);
+</code></pre><p class="css-0">What we do is start with a given value (accumulator = 0), and then for each item within the list, we execute the supplied function, and update the accumulator.</p></div><div class="css-ooyd37"><h3 class="css-1djqpdg">Functional Programming Paradigms: Filter</h3><p class="css-0">When you wish to receive a list from another list that adheres to some specific set of criteria, filter is the best option. To get a list of all office characters who have salaries over 60,000, we&#x27;d write an anonymous function that returns a boolean value:</p><pre class="css-1gxdjd5"><code class="language-javascript css-vgof0f">const higherSalaries = officeFolk.filter( officeCharacter =&gt; officeCharacter.salary &gt;== 60000)
+
+console.log(higherSalaries)
+
+</code></pre></div><div class="css-ooyd37"><h3 class="css-1djqpdg">Functional Programming Paradigms: Find</h3><p class="css-0">Find will retrieve a value from the list by passing a function that returns a boolean value (just like the filter function):</p><pre class="css-1gxdjd5"><code class="language-javascript css-vgof0f">const noSalary = officeFolk.find(character =&gt; character.salary === 0);
+
+console.log(noSalary);
+</code></pre></div><div class="css-ooyd37"><h3 class="css-1djqpdg">Functional Programming Paradigms: Find</h3><p class="css-0">As a note, however, find will not return ALL values that match, but only the first value that matches:</p><pre class="css-1gxdjd5"><code class="language-javascript css-vgof0f">const fortyThousandSalary = officeFolk.find(
+  character =&gt; character.salary === 40000
+);
+
+console.log(fortyThousandSalary);
+</code></pre></div></div></div></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/print";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app-0a1bea0785cad8b5b8f6.js"],"component---gatsby-theme-mdx-deck-src-templates-deck-js":["/component---gatsby-theme-mdx-deck-src-templates-deck-js-8b79b2f7698a586d24d7.js"]};/*]]>*/</script><script src="/webpack-runtime-62ab93873056e1e7eeb7.js" async=""></script><script src="/app-0a1bea0785cad8b5b8f6.js" async=""></script><script src="/commons-eec50aa5983109e0f4e3.js" async=""></script><script src="/component---gatsby-theme-mdx-deck-src-templates-deck-js-8b79b2f7698a586d24d7.js" async=""></script></body></html>

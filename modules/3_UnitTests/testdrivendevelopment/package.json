@@ -1,0 +1,16 @@
+{
+  "name": "testdrivendevelopment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watchAll"
+
+  },
+  "author": "Matt Lane <mjlane@monsanto.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^25.4.0"
+  }
+}

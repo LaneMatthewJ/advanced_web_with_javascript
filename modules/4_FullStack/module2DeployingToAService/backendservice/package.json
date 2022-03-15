@@ -1,0 +1,40 @@
+{
+  "name": "backendservice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "heroku-postbuild": "npm install",
+    "start": "node src/server.js",
+    "dev": "npx nodemon src/server.js",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "lint": "eslint --format table --ext .js src",
+    "lint:fix": "eslint --fix --format table --ext .js src"
+  },
+  "engines": {
+    "node": "10.x"
+  },
+  "keywords": [
+    "heroku"
+  ],
+  "author": "Matt Lane <mjlane@monsanto.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "jest": "^25.4.0",
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "bcrypt": "^4.0.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.7",
+    "morgan": "^1.10.0",
+    "superagent": "^5.2.2",
+    "swagger-ui-express": "^4.1.4"
+  }
+}

@@ -1,0 +1,3 @@
+# Environment Variables
+
+When you commit code to a repository, it can easily be seen by anyone who has access. For open source code (think literally anything posted up to github),  committing special keys, or even secret URLs to your repository can be a potential security risk. To get around this, an added layer of security can be to host these special values within the environment within your node project. In order to do this, you can place variables within a `.env` file within your project's top directory. 
