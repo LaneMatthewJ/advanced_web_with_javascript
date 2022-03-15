@@ -1,0 +1,16 @@
+# Directories from the code we don't want to push
+*node_modules
+*.zip
+
+## In class coding directories we don't want to push
+*inClassCoding
+*[Ll]iveCode
+
+## Directories specifically not to commit
+*nocommit
+grades*
+test1
+test2
+testproj
+testProject
+Projects
